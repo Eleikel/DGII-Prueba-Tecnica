@@ -1,0 +1,81 @@
+<div class="col-12">
+  <h1 mat-dialog-title class="text-center">Reporte de Comprobantes Fiscales</h1>
+
+  <hr />
+  <mat-dialog-content class="mat-typography text-center">
+    <div class="col">
+      <div class="row">
+        <h3 class="font-weight-bold">
+          Contribuyente:
+          <span class="text-muted">{{ contribuyente.nombre }}</span>
+        </h3>
+      </div>
+      <div class="row">
+        <h3 class="font-weight-bold">
+          RNC/Cedula:
+          <span class="text-muted">{{ contribuyente.rncCedula }}</span>
+        </h3>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <div *ngIf="contribuyente.comprobantesFiscales?.length! > 0">
+    <div class="mat-elevation-z5">
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="ncf">
+          <th mat-header-cell *matHeaderCellDef>NCF</th>
+          <td mat-cell *matCellDef="let element">{{ element.ncf }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="monto">
+          <th mat-header-cell *matHeaderCellDef>Monto</th>
+          <td mat-cell *matCellDef="let element">{{ element.monto }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="itbis18">
+          <th mat-header-cell *matHeaderCellDef>Itbis (18%)</th>
+          <td mat-cell *matCellDef="let element">{{ element.itbis18 }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+    </div>
+
+    <div class="d-flex justify-content-end align-items-center mt-3">
+      <div class="">
+        <mat-list>
+          <mat-divider></mat-divider>
+          <mat-list-item class="font-weight-bold"
+            >Total Itbis:&nbsp;
+            <span class="text-success">
+              RD$ {{ montoTotal | number : "1.0-2" }}</span
+            >
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="contribuyente.comprobantesFiscales?.length! === 0">
+    <mat-card>
+      <mat-card-title>
+        <h2 class="text-center text-danger">
+          Este contribuyente no tiene Comprobantes Fiscales
+        </h2>
+      </mat-card-title>
+    </mat-card>
+  </div>
+
+  <mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close color="primary">Cerrar</button>
+  </mat-dialog-actions>
+</div>

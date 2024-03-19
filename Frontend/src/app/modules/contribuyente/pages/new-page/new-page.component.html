@@ -1,0 +1,79 @@
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <h1>
+    {{ currentContribuyente.id ? "Editar a" : "Agregar" }}
+    <small *ngIf="currentContribuyente.id">{{
+      currentContribuyente.nombre
+    }}</small>
+  </h1>
+
+  <button
+    mat-raised-button
+    color="accent"
+    [routerLink]="['./contribuyentes-list']"
+  >
+    <mat-icon>home</mat-icon>
+    Volver
+  </button>
+</div>
+
+<mat-divider class="mb-2"></mat-divider>
+
+<div class="grid">
+  <div class="col-12 sm:col-6">
+    <mat-card>
+      <mat-card-content>
+        <form
+          class="grid"
+          [formGroup]="contribuyenteForm"
+          (submit)="onSubmit()"
+        >
+          <mat-form-field class="col-12 sm:col-6">
+            <mat-label> Nombre </mat-label>
+            <input matInput type="text" required formControlName="nombre" />
+          </mat-form-field>
+
+          <mat-form-field class="col-12 sm:col-6">
+            <mat-label> RNC/Cedula </mat-label>
+            <input matInput type="text" required formControlName="rncCedula" />
+          </mat-form-field>
+
+          <mat-form-field class="col-12">
+            <mat-label> Tipo </mat-label>
+            <mat-select required formControlName="tipo">
+              <mat-option
+                *ngFor="let tipos of tiposContribuyenteEnum | keyvalue"
+                [value]="tipos.value"
+              >
+                {{ tipos.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-12">
+            <mat-label> Estatus </mat-label>
+            <mat-select required formControlName="estatus">
+              <mat-option [value]="true"> Activo </mat-option>
+              <mat-option [value]="false"> Inactivo </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <button
+            *ngIf="currentContribuyente.id"
+            (click)="onDeleteContribuyente()"
+            mat-flat-button
+            color="accent"
+          >
+            <mat-icon>delete</mat-icon>
+            Borrar
+          </button>
+          <span class="spacer"></span>
+          <button mat-flat-button color="primary" (click)="onSubmit()">
+            <mat-icon>save</mat-icon>
+            Guardar
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

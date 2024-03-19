@@ -1,0 +1,63 @@
+<h2 mat-dialog-title class="text-center">
+  Agregar Comprobante Fiscal a {{ contribuyente.nombre }}
+</h2>
+
+<div class="grid">
+  <div class="col-12 sm:col-6">
+    <mat-card>
+      <mat-card-content>
+        <form
+          class="grid"
+          [formGroup]="comprobanteFiscalForm"
+          (submit)="onSubmit()"
+        >
+          <mat-form-field class="col-12 sm:col-6">
+            <mat-label>Contribuyente</mat-label>
+            <input
+              matInput
+              type="text"
+              required
+              [value]="contribuyente.nombre"
+              disabled="true"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="col-12 sm:col-6">
+            <mat-label>RNC / CEDULA</mat-label>
+            <input
+              matInput
+              type="text"
+              required
+              [value]="contribuyente.rncCedula"
+              disabled="true"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="col-12 sm:col-6">
+            <mat-label>NCF</mat-label>
+            <input matInput type="text" required formControlName="ncf" />
+          </mat-form-field>
+
+          <mat-form-field floatLabel="always" class="col-12 sm:col-6">
+            <mat-label> Monto </mat-label>
+            <input
+              matInput
+              type="number"
+              required
+              formControlName="monto"
+              class="example-right-align"
+            />
+            <span matTextPrefix>$&nbsp;</span>
+          </mat-form-field>
+        </form>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <span class="spacer"></span>
+          <button mat-flat-button color="primary" (click)="onSubmit()">
+            <mat-icon>save</mat-icon>
+            Guardar
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

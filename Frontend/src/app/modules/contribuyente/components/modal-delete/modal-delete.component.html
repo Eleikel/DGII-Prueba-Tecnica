@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Estas seguro?</h1>
+<div mat-dialog-content>
+  Este proceso no es reversible, estas a punto de eliminar a
+  {{ contribuyente.nombre }}
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button color="warn" (click)="onNoClick()">No</button>
+  <span class="space"></span>
+  <button mat-button color="primary" (click)="onConfirm()" cdkFocusInitial>
+    Ok
+  </button>
+</div>
